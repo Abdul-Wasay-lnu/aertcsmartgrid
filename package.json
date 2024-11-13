@@ -1,0 +1,18 @@
+{
+  "name": "dashboard.github.io",
+  "version": "1.0.0",
+  "description": "With Creative Tim Builder, you can build your next template easily using drag and drop.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3"
+  }
+}
