@@ -105,7 +105,7 @@ app.get('/get-all-history', (req, res) => {
 });
 
 const value = new Array(2);
-const buttonstate = 0;
+// const buttonstate = 0;
 
 // Endpoint to retrieve data based on two keys to be used by checkbox buttons
 app.post('/control', (req, res) => {
@@ -118,15 +118,15 @@ app.post('/control', (req, res) => {
 
 // Endpoint to get the latest data for control
 app.post('/get-btcontrol', (req, res) => {
-    res.json(parseInt(buttonstate, 10));
+    // res.json(parseInt(buttonstate, 10));
     console.log("in getbt", buttonstate);
 });
 
 // Endpoint to update the radio button state
 app.post('/update-radio', (req, res) => {
-    const radioState = req.body;
+    const { buttonstate } = req.body;
     console.log('Received req.body state:', req.body);
-    buttonstate = Number(req.body);
+    buttonstate = Number(buttonstate);
    
     console.log('Received button state:', buttonstate);
     res.json({ message: 'Power button state', data: buttonstate });
