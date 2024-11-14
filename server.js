@@ -28,7 +28,7 @@ const BatteryData = mongoose.model('BatteryData', batteryDataSchema);
 // Endpoint to handle HTTP POST from LabVIEW
 app.post('/receive-data', (req, res) => {
     const labviewData = req.body;
-
+console.log(labviewData);
     // Use a Promise to handle database insertion
     const insertPromises = Object.entries(labviewData).map(([key, value]) => {
         const batteryData = new BatteryData({
