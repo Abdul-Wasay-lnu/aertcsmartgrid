@@ -115,7 +115,7 @@ app.post('/control', (req, res) => {
     res.json({ message: 'keys received', data: value });
 });
 
-let buttonstate = "0";  // Declare a global variable to store the button state as a string
+let buttonstate = 0;  // Declare a global variable to store the button state as a string
 
 // Endpoint to update the radio button state
 app.post('/update-radio', (req, res) => {
