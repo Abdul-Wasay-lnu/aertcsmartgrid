@@ -321,7 +321,7 @@ function sendPowerStatus() {
   headers: {
     'Content-Type': 'text/plain',
   },
-  body: powerStatus.toString() // Send as a plain text string
+  body: powerStatus // Send as a plain text string
 })
     .then(response => response.json())
     .then(data => {
