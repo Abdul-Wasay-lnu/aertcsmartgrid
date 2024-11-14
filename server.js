@@ -126,7 +126,7 @@ app.post('/get-btcontrol', (req, res) => {
 app.post('/update-radio', (req, res) => {
     let radioState = req.body;
     buttonstate = Number(radioState);
-    console.log('Received radio state:', radioState);
+    console.log('Received req.body state:', req.body);
     console.log('Received button state:', buttonstate);
     res.json({ message: 'Power button state', data: buttonstate });
 });
