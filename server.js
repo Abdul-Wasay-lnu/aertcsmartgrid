@@ -12,7 +12,12 @@ app.use(express.static('public'));
 
 // Connect to MongoDB
 const dbURI = process.env.MONGODB_URI;; // replace with your MongoDB URI if using a cloud provider
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbURI,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,  // Increase server selection timeout
+    socketTimeoutMS: 45000,         // Increase socket timeout
+  })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
