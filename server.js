@@ -135,7 +135,7 @@ app.post('/get-btcontrol', (req, res) => {
     console.log('Current button state:', buttonstate);
 
     // Respond with the current button state
-    res.json({ buttonstate });
+    res.json(buttonstate);
 });
 
 
