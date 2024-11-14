@@ -105,8 +105,7 @@ app.get('/get-all-history', (req, res) => {
 });
 
 const value = new Array(2);
-// const buttonstate = 0;
-const { buttonstate } = 0;
+
 // Endpoint to retrieve data based on two keys to be used by checkbox buttons
 app.post('/control', (req, res) => {
     const { btid, cn } = req.body;
@@ -116,21 +115,29 @@ app.post('/control', (req, res) => {
     res.json({ message: 'keys received', data: value });
 });
 
-// Endpoint to get the latest data for control
-app.post('/get-btcontrol', (req, res) => {
-    res.json(buttonstate);
-    console.log("in getbt", buttonstate);
-});
+let buttonstate = "0";  // Declare a global variable to store the button state as a string
 
 // Endpoint to update the radio button state
 app.post('/update-radio', (req, res) => {
-    const { buttonstate } = req.body;
+    const { buttonstate: newButtonState } = req.body;  // Extract buttonstate from the request body
     console.log('Received req.body state:', req.body);
-    // buttonstate =parseInt(buttonstate, 10);
-   
-    console.log('Received button state:', buttonstate);
-    res.json({ message: 'Power button state', data: buttonstate });
+
+    // Update the global buttonstate (no parsing to integer, just store the value as is)
+    buttonstate = newButtonState;
+    console.log('Updated button state:', buttonstate);
+
+    // Respond with the updated state
+    res.json({ message: 'Power button state updated', data: buttonstate });
 });
+
+// Endpoint to get the button state
+app.post('/get-btcontrol', (req, res) => {
+    console.log('Current button state:', buttonstate);
+
+    // Respond with the current button state
+    res.json({ buttonstate });
+});
+
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
