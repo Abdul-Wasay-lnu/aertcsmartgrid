@@ -15,7 +15,7 @@ const dbURI = process.env.MONGODB_URI;; // replace with your MongoDB URI if usin
 mongoose.connect(dbURI,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000,  // Increase server selection timeout
+    serverSelectionTimeoutMS: 10000,  // Increase server selection timeout
     socketTimeoutMS: 45000,         // Increase socket timeout
   })
     .then(() => console.log('MongoDB connected'))
