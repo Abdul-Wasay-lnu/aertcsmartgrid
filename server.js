@@ -119,7 +119,7 @@ app.post('/control', (req, res) => {
 
 // Endpoint to get the latest data for control
 app.post('/get-btcontrol', (req, res) => {
-    // res.json(parseInt(buttonstate, 10));
+    res.json(parseInt(buttonstate, 10));
     console.log("in getbt", buttonstate);
 });
 
