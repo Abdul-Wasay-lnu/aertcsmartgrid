@@ -106,6 +106,7 @@ app.get('/get-all-history', (req, res) => {
 
 const value = new Array(2);
 // const buttonstate = 0;
+const { buttonstate } = 0;
 
 // Endpoint to retrieve data based on two keys to be used by checkbox buttons
 app.post('/control', (req, res) => {

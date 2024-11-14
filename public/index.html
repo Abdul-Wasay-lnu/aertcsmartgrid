@@ -314,8 +314,7 @@ function sendPowerStatus() {
     const powerSwitch = document.getElementById('power-switch');
     const powerStatus = powerSwitch.checked ? 1 : 0;
     console.log('Power button status:',powerStatus);
-// console.log('Sending power status to server:', powerStatus.toString());
-updateLEDStatus(powerStatus);    
+    updateLEDStatus(powerStatus);    
 
 fetch('/update-radio', {
   method: 'POST',
