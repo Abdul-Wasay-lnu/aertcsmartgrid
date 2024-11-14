@@ -108,7 +108,7 @@ const value = new Array(2);
 let buttonstate = 0;
 
 // Endpoint to retrieve data based on two keys to be used by checkbox buttons
-app.post('/control/', (req, res) => {
+app.post('/control', (req, res) => {
     const { btid, cn } = req.body;
     value[0] = btid;
     value[1] = cn;
