@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config(); // Add this at the top
 const app = express();
 // const port = 3000;
 const port = process.env.PORT || 3000;
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Connect to MongoDB
-const dbURI = 'mongodb://192.168.1.16:27017/smartgrid'; // replace with your MongoDB URI if using a cloud provider
+const dbURI = process.env.MONGODB_URI;; // replace with your MongoDB URI if using a cloud provider
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
