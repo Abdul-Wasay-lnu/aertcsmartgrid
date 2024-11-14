@@ -128,7 +128,7 @@ app.post('/update-radio', (req, res) => {
     buttonstate = parseInt(radioState,10);
     console.log('Received radio state:', radioState);
     console.log('Received button state:', buttonstate);
-    res.json({ message: 'Power button state', buttonstate: parseInt(buttonstate, 10) });
+    res.json({ message: 'Power button state', data: buttonstate });
 });
 
 app.listen(port, () => {
