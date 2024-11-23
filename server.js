@@ -11,9 +11,8 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Connect to MongoDB
-const dbURI = process.env.MONGODB_URI;; // replace with your MongoDB URI if using a cloud provider
+const dbURI = process.env.MONGODB_URI; // replace with your MongoDB URI if using a cloud provider
 mongoose.connect(dbURI,{
-    useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 10000,  // Increase server selection timeout
     socketTimeoutMS: 45000,         // Increase socket timeout
@@ -31,10 +30,10 @@ const batteryDataSchema = new mongoose.Schema({
 const BatteryData = mongoose.model('BatteryData', batteryDataSchema);
 
 // Endpoint to handle HTTP POST from LabVIEW
-app.post('/receive-data', (req, res) => {
+app.post('/receive-data', async (req, res) => {
     const labviewData = req.body;
 console.log(labviewData);
-    // Use a Promise to handle database insertion
+try {
     const insertPromises = Object.entries(labviewData).map(([key, value]) => {
         const batteryData = new BatteryData({
             BatteryIndex: parseInt(key, 10),
@@ -43,16 +42,12 @@ console.log(labviewData);
 
         return batteryData.save();
     });
-
-    // Wait for all insert operations to complete
-    Promise.all(insertPromises)
-        .then(() => {
-            res.json({ message: 'Data saved to database', data: labviewData });
-        })
-        .catch(err => {
-            console.error('Error inserting data:', err);
-            res.status(500).json({ message: 'Error saving data to database' });
-        });
+    await Promise.all(insertPromises);
+    res.status(201).json({ message: 'Data saved to database', data: labviewData });
+} catch (err) {
+    console.error('Error inserting data:', err.message);
+    res.status(500).json({ message: 'Error saving data to database', error: err.message });
+}
 });
 
 // Endpoint to get the latest data
