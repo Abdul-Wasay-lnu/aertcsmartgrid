@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -28,12 +28,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,17 +53,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DDC7EF2835F24C51BE65A1EBD289C1C9 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_53B96C7C42E546BD961B9BD0EFDABF91 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E5B4959ABB2947EF85A046AA0476EE12 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F926B21B2299408E854A5DD8D4242B1D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FBB2BA6EA4B140C4972F4D871C7B163C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2F383DA1482043098700DBBC224D547E }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'aertcsmartgrid'
           slot-name: 'Production'
